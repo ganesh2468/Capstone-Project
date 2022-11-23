@@ -1,8 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function Checkout() {
@@ -17,10 +14,12 @@ function Checkout() {
     const navigate = useNavigate();
 
     const successcheckout=()=>{
-        // alert("Book Bought Successfully");
-        // navigate("/Displaybookuser");
-        // window.location.reload();
         axios.delete("http://localhost:8080/api/v1/library/buy")
+  .then((response)=>{
+    console.log(response.data);
+  }).catch(error=>{console.log(error);
+  })
+  axios.delete("http://localhost:8080/api/v1/library/requestbuy")
   .then((response)=>{
     console.log(response.data);
   }).catch(error=>{console.log(error);
@@ -31,7 +30,7 @@ function Checkout() {
     <>
       <h2  classNameName="text-centre">Add Details And Checkout</h2>
       <div  classNameName="row row-cols-1 row-cols-md-3 g-4">
-<form  className="row g-3">
+<form  className="row g-3" onSubmit={successcheckout}>
   <div  className="col-md-6">
     <label  htmlFor="inputEmail4"  className="form-label">Email</label>
     <input type="email"  className="form-control" id="inputEmail4" required/>
@@ -107,7 +106,7 @@ function Checkout() {
   </div>
 </div>
 </div>
-    <button  className="btn btn-primary" type="submit" style={{"marginTop":"60px","textAlign":"center"}} onClick={() => successcheckout()}
+    <button  className="btn btn-primary" type="submit" style={{"marginTop":"60px","textAlign":"center"}} 
     >Checkout</button>
   </div>
 </form>

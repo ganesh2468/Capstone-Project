@@ -1,65 +1,13 @@
-// // import { useEffect,useState } from "react";
-// // import axios from 'axios';
-// import { useState } from "react";
-// import data from "../mock-data.json"
-// const DisplayBook=()=>{
-
-//     const[contacts,setContacts]=useState(data);
-
-
-//     return(
-//         <>
-// <div id="table">
-//           <h1>Your books</h1>
-//           <table className="table table-striped">
-//             <thead>
-//               <tr>
-//                 <th scope="col">Id</th>
-//                 <th scope="col">Name</th>
-//                 <th scope="col">Author</th>
-//                 <th scope="col">Type</th>
-//               </tr>
-//             </thead>
-//             <tbody id="tableBody">
-//                 {contacts.map((contact)=>
-//                 <tr>
-//                     <td>{contact.id}</td>
-//                     <td>{contact.name}</td>
-//                     <td>{contact.author}</td>
-//                     <td>{contact.type}</td>
-
-//                 </tr>
-//                 )}
-//             </tbody>
-//           </table>
-//         </div>
-//         </>
-//     );
-// }
-// export default DisplayBook;
 
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate,useParams } from "react-router-dom";
-// import LibraryServices from "./services/LibraryServices";
-import { Button } from "bootstrap";
 const DisplayBook = () => {
   const [books, setBooks] = useState([]);
   const{id}=useParams();
     const navigate = useNavigate();
-
-//   useEffect(()=>{
-//     axios
-//     .get("http://localhost:8080/api/v1/library")
-//     .then((response) => {
-//       setBooks(
-// response.data
-//       );
-//       console.log(response.data);
-//     });
-//    },[])
 
 useEffect(() => {
   axios.get("http://localhost:8080/api/v1/library")
@@ -135,12 +83,6 @@ const Borrowbook=(id,book)=>{
                   <Link className="btn btn-info" to={`/edit-book/${book.id}`}
                   style={{margin:"10px"}}>Update</Link>
                   <Link className="btn btn-danger" onClick={()=>deleteBook(book.id) }>Delete</Link>
-                  {/* <button
-                  className="btn btn-success"
-                  onClick={() => Borrowbook(book.id,book)}
-                style={{margin:'10px'}}>
-                  Issue
-                </button> */}
                 </td>
               </tr>
             ))}

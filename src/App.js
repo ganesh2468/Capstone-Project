@@ -6,12 +6,7 @@ import "./App.css";
 import AuthService from "./Services/auth-service";
 
 import Login from "./Components/Login";
-//import Register from "./components/Register";
 import Home from "./Components/Home";
-import Profile from "./Components/Profile";
-import BoardUser from "./Components/BoardUser";
-//import BoardModerator from "./components/BoardModerator";
-import AdminBoard from "./Components/AdminBoard";
 import DisplayBook from "./Components/DisplayBook";
 import DisplayBookuser from "./Components/DisplayBookuser";
 import Addbook from "./Components/Addbook";
@@ -25,8 +20,9 @@ import cart from "./cart.jfif";
 import Cart from "./Components/Cart";
 import Checkout from "./Components/Checkout";
 import BuyRequest from "./Components/BuyRequest";
+import Updatebook from "./Components/Updatebook";
+import Protected from "./Components/Protected";
 const App = () => {
-  //const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [getUserBoard, setUserBoard] = useState(false);
@@ -36,7 +32,6 @@ const App = () => {
 
     if (user) {
       setCurrentUser(user);
-      //setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
       setUserBoard(user.roles.includes("ROLE_USER"));
     }
@@ -52,11 +47,6 @@ const App = () => {
         <img src={logo} style={{"height":"40px","width":"100px","paddingLeft":"10px"}}/>
         </Link>
         <div className="navbar-nav mr-auto">
-          {/* <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
-              Home
-            </Link>
-          </li> */}
           {getUserBoard && (
             <li className="nav-item">
               <Link to={"/Displaybookuser"} className="nav-link">
@@ -115,7 +105,7 @@ const App = () => {
           </div>
           
         {currentUser ? (
-          <div className="navbar-nav ml-auto" style={{"marginLeft":"750px"}}>
+          <div className="navbar-nav ml-auto" style={{"marginLeft":"700px"}}>
             <li className="nav-item">
               <a href="/login" className="nav-link" onClick={logOut}>
                 <img src={logout} style={{"height":"40px","width":"50px","paddingLeft":"10px"}}/>
@@ -141,20 +131,20 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/home" element={<Home/>} />
+          <Route path="/home" element={<Protected Component ={Home}/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/view-book/:id" element={<Viewbook/>} />
-          <Route path="/displayBook" element={<DisplayBook/>} />
-          <Route path="/borrow" element={<Borrowbook/>} />
-          <Route path="/cart" element={<Cart/>} />
-          <Route path="/checkout" element={<Checkout/>} />
-          <Route path="/Displaybookuser" element={<DisplayBookuser/>} />
-          <Route path="/addbook" element={<Addbook/>} />
-          <Route path="/requestedbook" element={<Request/>} />
-          <Route path="/requestbuy" element={<BuyRequest/>} />
-          <Route path="/edit-book/:id" element={<Addbook/>} />
-          <Route path="/register" element={<Register/>} />
-          
+          <Route path="/view-book/:id" element={<Protected Component ={Viewbook}/>} />
+          <Route path="/displayBook" element={<Protected Component ={DisplayBook}/>} />
+          <Route path="/borrow" element={<Protected Component ={Borrowbook}/>} />
+          <Route path="/cart" element={<Protected Component ={Cart}/>} />
+          <Route path="/checkout" element={<Protected Component ={Checkout}/>} />
+          <Route path="/Displaybookuser" element={<Protected Component ={DisplayBookuser}/>} />
+          <Route path="/addbook" element={<Protected Component ={Addbook}/>} />
+          <Route path="/buy/:id" element={<Protected Component ={Updatebook}/>} />
+          <Route path="/requestedbook" element={<Protected Component ={Request}/>} />
+          <Route path="/requestbuy" element={<Protected Component ={BuyRequest}/>} />
+          <Route path="/edit-book/:id" element={<Protected Component ={Addbook}/>} />
+          <Route path="/register" element={<Register/>} /> 
         </Routes>
       </div>
     </div>

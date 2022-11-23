@@ -101,73 +101,78 @@ const Register = () => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
+    <section className="vh-100">
+  <div className="container py-5 h-100">
+    <div className="row d-flex align-items-center justify-content-center h-100">
+      <div className="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          className="img-fluid" alt="Phone image"/>
+      </div>
+      <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      <Form onSubmit={handleRegister} ref={form}>
 
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
-                />
+      {!successful && (
+             <div>
+               <div className="form-group">
+                 <label htmlFor="username">Username</label>
+                 <Input
+                   type="text"
+                   className="form-control"
+                   name="username"
+                   value={username}
+                   onChange={onChangeUsername}
+                   validations={[required, vusername]}
+                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
+      <div className="form-group">
+                 <label htmlFor="email">Email</label>
+                 <Input
+                   type="text"
+                   className="form-control"
+                   name="email"
+                   value={email}
+                   onChange={onChangeEmail}
+                   validations={[required, validEmail]}
+                 />
+               </div>
 
-              <div className="form-group">
+          
+               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
+              <Input
+                type="password"
+               className="form-control"
                   name="password"
                   value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
-                />
-              </div>
+                 onChange={onChangePassword}
+                   validations={[required, vpassword]}
+                 />
+             </div>
 
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
-              </div>
-            </div>
+             <div className="form-group">
+                 <button className="btn btn-primary btn-block" style={{"marginTop":"10px"}}>Sign Up</button>
+               </div>
+             </div>
           )}
 
-          {message && (
-            <div className="form-group">
-              <div
-                className={ successful ? "alert alert-success" : "alert alert-danger" }
-                role="alert"
-              >
-                {message}
-              </div>
-            </div>
-          )}
+{message && (
+             <div className="form-group">
+               <div
+                 className={ successful ? "alert alert-success" : "alert alert-danger" }
+                 role="alert"
+               >
+                 {message}
+               </div>
+             </div>
+           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
     </div>
+  </div>
+</section>
+
   );
 };
 
