@@ -89,6 +89,12 @@ public class LibraryController {
         return ResponseEntity.ok(request);
     }
 
+    @GetMapping("/library/requestbuy/{id}")
+    public ResponseEntity<BuyRequest> getRequestBuyById(@PathVariable int id) {
+        BuyRequest buyRequest = buyRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not exist with id" + id));
+        return ResponseEntity.ok(buyRequest);
+    }
+
     @DeleteMapping("/library/request/{id}")
     public ResponseEntity<HttpStatus> deleteRequest(@PathVariable int id) {
         Request request = requestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not exist with id" + id));
@@ -126,6 +132,10 @@ public class LibraryController {
          buyRepository.deleteAll();
     }
 
+    @DeleteMapping("/library/requestbuy")
+    public void  DeleteAllRequests() {
+        buyRequestRepository.deleteAll();
+    }
 
     @PostMapping("/library/buy")
     public Buy buyLibrary(@RequestBody Buy buy) {
@@ -164,14 +174,14 @@ public class LibraryController {
     }
 
     @PutMapping("/library/buy/{id}")
-    public ResponseEntity<BuyRequest> updateRequest(@PathVariable int id, @RequestBody BuyRequest buyDetails) {
-        BuyRequest updateRequest = buyRequestRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not exist with id" + id));
+    public ResponseEntity<Buy> updateRequest(@PathVariable int id, @RequestBody Buy buyDetails) {
+        Buy updateRequest = buyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not exist with id" + id));
         updateRequest.setBookName(buyDetails.getBookName());
         updateRequest.setAuthorName(buyDetails.getAuthorName());
         updateRequest.setRating(buyDetails.getRating());
         updateRequest.setImage(buyDetails.getImage());
         updateRequest.setStatus(buyDetails.getStatus());
-        buyRequestRepository.save(updateRequest);
+        buyRepository.save(updateRequest);
         return ResponseEntity.ok(updateRequest);
     }
 }
